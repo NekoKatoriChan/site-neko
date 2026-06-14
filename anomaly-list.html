@@ -165,7 +165,7 @@
 <body>
     <div class="header">
         <div class="site-name">ANOMALY DATABASE</div>
-        <div class="subtitle">Site N.E.K.O & SCP Foundation Archives</div>    </div>
+        <div class="subtitle">Site N.E.K.O Archives</div>    </div>
 
     <div class="search-container">
         <input type="text" class="search-box" placeholder="Enter anomaly designation..." id="searchInput">
@@ -177,15 +177,9 @@
     </div>
 
     <div class="section">
-        <div class="section-title">Site N.E.K.O Anomalies (1000 Entries)</div>
+        <div class="section-title">Site N.E.K.O Anomalies</div>
         <div class="anomaly-grid" id="neko-anomalies">
             
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">SCP Foundation Anomalies (1000 Entries)</div>
-        <div class="anomaly-grid" id="scp-anomalies">
         </div>
     </div>
 
@@ -195,14 +189,12 @@
     </div>
 
     <script>
-        // Generate 1000 N.E.K.O anomalies
         const nekoContainer = document.getElementById('neko-anomalies');
         for (let i = 1; i <= 1000; i++) {
             const item = document.createElement('div');
             item.className = 'anomaly-item';
             
             if (i === 100) {
-                // Special case for N.E.K.O-100
                 item.classList.add('special');
                 item.innerHTML = `
                     <a href="neko-100.html">
@@ -224,19 +216,7 @@
             nekoContainer.appendChild(item);
         }
 
-        // Generate 1000 SCP anomalies
-        const scpContainer = document.getElementById('scp-anomalies');
-        for (let i = 1; i <= 1000; i++) {
-            const item = document.createElement('div');
-            item.className = 'anomaly-item';            item.innerHTML = `
-                <div class="anomaly-id">????</div>
-                <div class="anomaly-name">[REDACTED]</div>
-            `;
-            item.dataset.id = `SCP-${String(i).padStart(3, '0')}`;
-            item.dataset.name = '[REDACTED]';
-            scpContainer.appendChild(item);
-        }
-
+        
         function searchAnomalies() {
             const query = document.getElementById('searchInput').value.toUpperCase();
             const allItems = document.querySelectorAll('.anomaly-item');
@@ -262,7 +242,7 @@
             });
         }
 
-        // Allow Enter key to search
+        
         document.getElementById('searchInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 searchAnomalies();
