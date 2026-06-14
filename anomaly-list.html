@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anomaly Database - Site N.E.K.O</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #0a0a0a;
+            color: #c0c0c0;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            line-height: 1.7;
+        }
+        
+        .header {
+            border-bottom: 2px solid #8b0000;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .site-name {
+            font-size: 26px;
+            font-weight: bold;
+            color: #ff3333;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 13px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .search-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .search-box {
+            background-color: #1a1a1a;
+            border: 2px solid #8b0000;            color: #c0c0c0;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+            width: 300px;
+            outline: none;
+        }
+        
+        .search-box:focus {
+            border-color: #ff3333;
+            box-shadow: 0 0 10px rgba(255, 51, 51, 0.3);
+        }
+        
+        .search-button {
+            background-color: #1a1a1a;
+            color: #ff3333;
+            border: 2px solid #8b0000;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+        
+        .search-button:hover {
+            background-color: #8b0000;
+            color: #fff;
+        }
+        
+        .section {
+            margin: 25px 0;
+        }
+        
+        .section-title {
+            color: #ff3333;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .anomaly-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+                .anomaly-item {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .anomaly-item:hover {
+            border-color: #8b0000;
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
+        }
+        
+        .anomaly-item a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .anomaly-item.special {
+            border-color: #ff69b4;
+        }
+        
+        .anomaly-item.special:hover {
+            border-color: #ff69b4;
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+        }
+        
+        .anomaly-item.special .anomaly-id {
+            color: #ff69b4;
+        }
+        
+        .anomaly-id {
+            color: #ff3333;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .anomaly-name {
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            padding-top: 15px;
+            border-top: 1px solid #333;
+            font-size: 11px;
+            color: #555;
+            text-align: center;
+        }
+        
+        .warning-text {
+            color: #ff6666;
+            font-style: italic;
+            margin: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="site-name">ANOMALY DATABASE</div>
+        <div class="subtitle">Site N.E.K.O & SCP Foundation Archives</div>    </div>
+
+    <div class="search-container">
+        <input type="text" class="search-box" placeholder="Enter anomaly designation..." id="searchInput">
+        <button class="search-button" onclick="searchAnomalies()">SEARCH</button>
+    </div>
+
+    <div class="warning-text">
+        Warning: Most data is classified. Search results may be incomplete or redacted.
+    </div>
+
+    <div class="section">
+        <div class="section-title">Site N.E.K.O Anomalies (1000 Entries)</div>
+        <div class="anomaly-grid" id="neko-anomalies">
+            
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">SCP Foundation Anomalies (1000 Entries)</div>
+        <div class="anomaly-grid" id="scp-anomalies">
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>For more information, contact those who may or may not have answers.</p>
+        <p style="margin-top: 8px;">N.E.K.O | Independent Site</p>
+    </div>
+
+    <script>
+        // Generate 1000 N.E.K.O anomalies
+        const nekoContainer = document.getElementById('neko-anomalies');
+        for (let i = 1; i <= 1000; i++) {
+            const item = document.createElement('div');
+            item.className = 'anomaly-item';
+            
+            if (i === 100) {
+                // Special case for N.E.K.O-100
+                item.classList.add('special');
+                item.innerHTML = `
+                    <a href="neko-100.html">
+                        <div class="anomaly-id">N.E.K.O-100</div>
+                        <div class="anomaly-name">Combat AI (Stable)</div>
+                    </a>
+                `;
+                item.dataset.id = `NEKO-0100`;
+                item.dataset.name = '[DATA EXPUNGED]';
+            } else {
+                item.innerHTML = `
+                    <div class="anomaly-id">????</div>
+                    <div class="anomaly-name">[DATA EXPUNGED]</div>
+                `;
+                item.dataset.id = `NEKO-${String(i).padStart(4, '0')}`;
+                item.dataset.name = '[DATA EXPUNGED]';
+            }
+            
+            nekoContainer.appendChild(item);
+        }
+
+        // Generate 1000 SCP anomalies
+        const scpContainer = document.getElementById('scp-anomalies');
+        for (let i = 1; i <= 1000; i++) {
+            const item = document.createElement('div');
+            item.className = 'anomaly-item';            item.innerHTML = `
+                <div class="anomaly-id">????</div>
+                <div class="anomaly-name">[REDACTED]</div>
+            `;
+            item.dataset.id = `SCP-${String(i).padStart(3, '0')}`;
+            item.dataset.name = '[REDACTED]';
+            scpContainer.appendChild(item);
+        }
+
+        function searchAnomalies() {
+            const query = document.getElementById('searchInput').value.toUpperCase();
+            const allItems = document.querySelectorAll('.anomaly-item');
+            
+            if (query === '') {
+                // Reset all to ???
+                allItems.forEach(item => {
+                    item.classList.remove('hidden');
+                    item.querySelector('.anomaly-id').textContent = '????';
+                    item.querySelector('.anomaly-name').textContent = item.dataset.name;
+                });
+                return;
+            }
+
+            allItems.forEach(item => {
+                const id = item.dataset.id;
+                if (id.includes(query)) {
+                    item.classList.remove('hidden');
+                    item.querySelector('.anomaly-id').textContent = id;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        }
+
+        // Allow Enter key to search
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchAnomalies();
+            }
+        });
+    </script>
+</body>
+</html>
